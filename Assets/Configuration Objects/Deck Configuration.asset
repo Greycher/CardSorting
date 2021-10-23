@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95678abcbb83478419c1dad87a150a3e, type: 3}
+  m_Name: Deck Configuration
+  m_EditorClassIdentifier: 
+  cards:
+  - suit: 0
+    points: 1
+    texture: {fileID: 2800000, guid: 3393963da3c5d93468ffe64e03841a69, type: 3}
+  - suit: 0
+    points: 2
+    texture: {fileID: 2800000, guid: 35e403b81c778284d8ff824c9d8d2712, type: 3}
+  - suit: 0
+    points: 3
+    texture: {fileID: 2800000, guid: 157e52ff1ae38424a8cb0495a66ace10, type: 3}
+  - suit: 0
+    points: 4
+    texture: {fileID: 2800000, guid: aacb677188ed39540b033aeddf71a1ba, type: 3}
+  - suit: 0
+    points: 5
+    texture: {fileID: 2800000, guid: 2428703f979455542ad8f129510bfe69, type: 3}
+  - suit: 0
+    points: 6
+    texture: {fileID: 2800000, guid: 7b302c0487f54ff479a17d0a8c46e2c7, type: 3}
+  - suit: 0
+    points: 7
+    texture: {fileID: 2800000, guid: c589aca80c1c6fa43a44dac6364cf308, type: 3}
+  - suit: 0
+    points: 8
+    texture: {fileID: 2800000, guid: ded0d40a4990113408c82ce9c266f955, type: 3}
+  - suit: 0
+    points: 9
+    texture: {fileID: 2800000, guid: 8a7ccdaeb243d8e44922545835fb720b, type: 3}
+  - suit: 0
+    points: 10
+    texture: {fileID: 2800000, guid: a9a3253da1480f84abdd93988f9c61db, type: 3}
+  - suit: 0
+    points: 11
+    texture: {fileID: 2800000, guid: 8bcd16a59eabcab4c827d60394f22613, type: 3}
+  - suit: 0
+    points: 12
+    texture: {fileID: 2800000, guid: 24bf13cc3198d04498926681456da681, type: 3}
+  - suit: 0
+    points: 13
+    texture: {fileID: 2800000, guid: 47c2c9b051a687646be53684008287fe, type: 3}
+  - suit: 1
+    points: 1
+    texture: {fileID: 2800000, guid: 7ae6c9d53ffc569409c4c02fcc8613ca, type: 3}
+  - suit: 1
+    points: 2
+    texture: {fileID: 2800000, guid: 1cc174e9829b5834c9c92077d69a7812, type: 3}
+  - suit: 1
+    points: 3
+    texture: {fileID: 2800000, guid: e5ee208c26e476343811d9737d8255a6, type: 3}
+  - suit: 1
+    points: 4
+    texture: {fileID: 2800000, guid: d72e439d0e535c247920e5dee11eba80, type: 3}
+  - suit: 1
+    points: 5
+    texture: {fileID: 2800000, guid: 41b984d237f141c438317c4324fb1456, type: 3}
+  - suit: 1
+    points: 6
+    texture: {fileID: 2800000, guid: 315e256b4d175f942932bfc9227c2865, type: 3}
+  - suit: 1
+    points: 7
+    texture: {fileID: 2800000, guid: fe88443ed3f0ae041bf5e0665a82d974, type: 3}
+  - suit: 1
+    points: 8
+    texture: {fileID: 2800000, guid: 4baf25d308b73eb41bf34486b4108674, type: 3}
+  - suit: 1
+    points: 9
+    texture: {fileID: 2800000, guid: 7ec05a503a623c64ab38247eab55d5d6, type: 3}
+  - suit: 1
+    points: 10
+    texture: {fileID: 2800000, guid: 56f92baa17dff664b9e551ec1e4c8eef, type: 3}
+  - suit: 1
+    points: 11
+    texture: {fileID: 2800000, guid: e25ec9442b91ac74fad70a017a8b8305, type: 3}
+  - suit: 1
+    points: 12
+    texture: {fileID: 2800000, guid: 82339c8adb02e4743a22a8acfaa513c3, type: 3}
+  - suit: 1
+    points: 13
+    texture: {fileID: 2800000, guid: 33ca5ac231e9eba4db5e906b02a246c4, type: 3}
+  - suit: 2
+    points: 1
+    texture: {fileID: 2800000, guid: 72361bdba2e98bc479ac25204bc1a799, type: 3}
+  - suit: 2
+    points: 2
+    texture: {fileID: 2800000, guid: 07bd1bb636bb7a84f82f04901d718460, type: 3}
+  - suit: 2
+    points: 3
+    texture: {fileID: 2800000, guid: 769e990757d19e647b05ca36d6bf8f6d, type: 3}
+  - suit: 2
+    points: 4
+    texture: {fileID: 2800000, guid: 7b1cba981efa9494aad824a350ce57e1, type: 3}
+  - suit: 2
+    points: 5
+    texture: {fileID: 2800000, guid: f1215b772ce61ae46a3b1f2b32856749, type: 3}
+  - suit: 2
+    points: 6
+    texture: {fileID: 2800000, guid: 28b0d79af3005fb45ba21191cb49ad65, type: 3}
+  - suit: 2
+    points: 7
+    texture: {fileID: 2800000, guid: fbce3c3aaa189724d8645c3fc984c006, type: 3}
+  - suit: 2
+    points: 8
+    texture: {fileID: 2800000, guid: c61907b9148dc11459c03e8b5fe6c969, type: 3}
+  - suit: 2
+    points: 9
+    texture: {fileID: 2800000, guid: d8864f3ded7a2364ca0b915543494852, type: 3}
+  - suit: 2
+    points: 10
+    texture: {fileID: 2800000, guid: 72a20d6c13d526e42a2fa38e3cedcf15, type: 3}
+  - suit: 2
+    points: 11
+    texture: {fileID: 2800000, guid: ba0ceaa1035624442ae27f14102d4fec, type: 3}
+  - suit: 2
+    points: 12
+    texture: {fileID: 2800000, guid: b5e4ed27cf315d2468f12f9c9f612fa0, type: 3}
+  - suit: 2
+    points: 13
+    texture: {fileID: 2800000, guid: 175b7e8d1ca30a34da97ec222a47c83c, type: 3}
+  - suit: 3
+    points: 1
+    texture: {fileID: 2800000, guid: 189a07775d85cad4fab8bb0b805ae460, type: 3}
+  - suit: 3
+    points: 2
+    texture: {fileID: 2800000, guid: f5c788e32cfbc5d4192ea48d1680dbcd, type: 3}
+  - suit: 3
+    points: 3
+    texture: {fileID: 2800000, guid: b3e8917e869b23542b5f232a7ec93e8b, type: 3}
+  - suit: 3
+    points: 4
+    texture: {fileID: 2800000, guid: 139002b2f38ff6549927fbe472503651, type: 3}
+  - suit: 3
+    points: 5
+    texture: {fileID: 2800000, guid: 226e388acd65078488d071667036030d, type: 3}
+  - suit: 3
+    points: 6
+    texture: {fileID: 2800000, guid: 3842a8c66783e7647a9dfec7e29f7774, type: 3}
+  - suit: 3
+    points: 7
+    texture: {fileID: 2800000, guid: 29b3ef8ae2f0146449866c4b524dac5b, type: 3}
+  - suit: 3
+    points: 8
+    texture: {fileID: 2800000, guid: f5e7aae2a05df674293e46d82c8b0c65, type: 3}
+  - suit: 3
+    points: 9
+    texture: {fileID: 2800000, guid: 52af49c7f19bfc641bf5a24ed2740acb, type: 3}
+  - suit: 3
+    points: 10
+    texture: {fileID: 2800000, guid: c87a25901e07f704c9c84e4fe0e441b8, type: 3}
+  - suit: 3
+    points: 11
+    texture: {fileID: 2800000, guid: 785a09aa22d30c14194977523226310f, type: 3}
+  - suit: 3
+    points: 12
+    texture: {fileID: 2800000, guid: 96f85ac5441166540a8fdd3280b07962, type: 3}
+  - suit: 3
+    points: 13
+    texture: {fileID: 2800000, guid: 8ecd7cc47a4048040bc9f24ac45b491c, type: 3}
