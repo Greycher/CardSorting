@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Deck Configuration")]
 public class DeckConfiguration : ScriptableObject {
-    [SerializeField] private Card[] cards;
+    [SerializeField] private CardData[] cards;
 
-    public Card[] Cards => cards;
+    public CardData[] Cards => cards;
 }

@@ -1,11 +1,18 @@
-using System;
 using UnityEngine;
 
-[Serializable]
-public class Card {
-    [SerializeField] private Suit suit;
-    [SerializeField] private int points;
-    [SerializeField] private Texture texture;
+public class Card : MonoBehaviour {
+    [SerializeField] private MeshRenderer renderer;
+    [SerializeField] private int foregroundMatIndex;
 
-    public Texture Texture => texture;
+    private CardData _cardData;
+
+    public void AssignData(CardData cardData) {
+        _cardData = cardData;
+        UpdateTexture(_cardData.Texture);
+    }
+
+    private void UpdateTexture(Texture texture) {
+        var mat = renderer.materials[foregroundMatIndex];
+        mat.mainTexture = texture;
+    }
 }
