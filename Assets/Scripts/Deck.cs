@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Deck : MonoBehaviour {
     [SerializeField] private DeckConfiguration configuration;
@@ -7,6 +9,7 @@ public class Deck : MonoBehaviour {
     [SerializeField] private float spacing = 0.1f;
 
     private List<Card> _cards = new List<Card>();
+
     private void Awake() {
         Create();
         Shuffle();
@@ -21,13 +24,7 @@ public class Deck : MonoBehaviour {
             _cards.Add(card);
         }
     }
-
-    private void PositionCard(Card card, int orderIndex) {
-        var localPosition = card.transform.localPosition;
-        localPosition.z = -(orderIndex * spacing);
-        card.transform.localPosition = localPosition;
-    }
-
+    
     private void Shuffle() {
         for (int i = _cards.Count - 1; i > 0; i--) {
             var rand = Random.Range(0, i + 1);
@@ -35,5 +32,19 @@ public class Deck : MonoBehaviour {
             PositionCard(_cards[i], i);
             PositionCard(_cards[rand], rand);
         }
+    }
+
+    private void PositionCard(Card card, int orderIndex) {
+        var localPosition = card.transform.localPosition;
+        localPosition.z = -(orderIndex * spacing);
+        card.transform.localPosition = localPosition;
+    }
+
+    public Card Draw() {
+        var lastIndex = _cards.Count - 1;
+        var card = _cards[lastIndex];
+        _cards.RemoveAt(lastIndex);
+        card.transform.SetParent(null);
+        return card;
     }
 }
