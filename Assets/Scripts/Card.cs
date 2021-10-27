@@ -11,19 +11,27 @@ public class Card : MonoBehaviour {
 
     public Action<Card> onTargetPoseReached;
 
+    public bool IsAtHand {
+        get => _isAtHand;
+        set => _isAtHand = value;
+    }
+
+    public bool AtTarget => _inPosition && _inRotation;
+
     private CardData _cardData;
+    private State _state = State.Free;
     private Pose _targetPose;
-    private bool _animating;
+    private bool _isAtHand;
     private bool _inPosition;
     private bool _inRotation;
 
     private void Update() {
-        if (_animating) {
+        if (_state == State.Moving) {
             ProgressPosition();
             ProgressRotation();
-            if (_inPosition && _inRotation) {
-                _animating = false;
-                onTargetPoseReached(this);
+            if (AtTarget) {
+                _state = State.Free;
+                onTargetPoseReached?.Invoke(this);
             }
         }
     }
@@ -61,9 +69,51 @@ public class Card : MonoBehaviour {
     }
 
     public void MoveToPose(Pose pose) {
-        _animating = true;
         _inPosition = false;
         _inRotation = false;
         _targetPose = pose;
+        
+        if (_state == State.Free) {
+            _state = State.Moving;
+        }
+    }
+
+    public void MarkBusy() {
+        _state = State.Busy;
+    }
+    
+    public void UnMarkBusy() {
+        _state = AtTarget ? State.Free : State.Moving;
+
+    }
+
+    public static bool IsColliderBelongs(Collider collider) {
+        var parent = collider.transform.parent;
+        if (parent != null) {
+            return parent.GetComponent<Card>() != null;
+        }
+
+        return false;
+    }
+
+    public static bool TryGetFromCollider(Collider collider, out Card card) {
+        var parent = collider.transform.parent;
+        if (parent != null) {
+            card = parent.GetComponent<Card>();
+            if (card != null) {
+                return true;
+            }
+        }
+        else {
+            card = null;
+        }
+        
+        return false;
+    }
+
+    private enum State {
+        Free,
+        Moving,
+        Busy
     }
 }
