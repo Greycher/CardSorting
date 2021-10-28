@@ -16,6 +16,7 @@ public class Card : MonoBehaviour {
         set => _belongedHand = value;
     }
     public bool AtTarget => _inPosition && _inRotation;
+    public CardData Data => _cardData;
 
     private CardData _cardData;
     private State _state = State.Free;

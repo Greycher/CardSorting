@@ -12,7 +12,12 @@ public class Hand : MonoBehaviour {
     [SerializeField] private float drawDelaySec = 0.5f;
     [SerializeField] private float highlightDistance = 0.2f;
 
-    private bool Interactable => _cards[slotCount - 1] != null;
+    public bool Interactable => _cards[slotCount - 1] != null;
+
+    public Card[] Cards {
+        get => _cards;
+        set => _cards = value;
+    }
 
     private Card[] _cards;
     private Card _highlightedCard;
@@ -160,6 +165,13 @@ public class Hand : MonoBehaviour {
                 AssignCardToSlot(nextCard, i);
                 nextCard = temp;
             }
+        }
+    }
+    
+    public void UpdateSlots() {
+        for (int i = 0; i < _cards.Length; i++) {
+            var card = _cards[i];
+            AssignCardToSlot(card, i);
         }
     }
 
