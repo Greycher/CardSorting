@@ -645,8 +645,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deck: {fileID: 763700446}
   slotCount: 11
-  arcAngle: 120
-  radius: 3
+  arcAngle: 30
+  radius: 5
   zOffset: 0.01
   drawDelaySec: 0.5
   highlightDistance: 0.04
@@ -658,7 +658,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347832889}
   m_LocalRotation: {x: 0.60876155, y: 0, z: 0, w: 0.7933533}
-  m_LocalPosition: {x: 0, y: 5.3700275, z: -16.576483}
+  m_LocalPosition: {x: 0, y: 9.570022, z: -23.38922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 963194227}
-  viewport: {x: 0.5, y: 0, z: 10}
+  viewport: {x: 0.5, y: -1.9, z: 2}
   tiltAngle: 45
 --- !u!1 &1683195157
 GameObject:
@@ -795,5 +795,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 963194227}
-  hand: {fileID: 1347832890}
   rayMaxDistance: 20

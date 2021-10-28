@@ -12,8 +12,6 @@ public class Hand : MonoBehaviour {
     [SerializeField] private float drawDelaySec = 0.5f;
     [SerializeField] private float highlightDistance = 0.2f;
 
-    public bool Highlighting => _highlightedCard != null;
-
     private bool Interactable => _cards[slotCount - 1] != null;
 
     private Card[] _cards;
@@ -38,8 +36,8 @@ public class Hand : MonoBehaviour {
     private void DrawACard() {
         if (_filledSlotCount < slotCount) {
             _filledSlotCount++;
-            var slotIndex = _filledSlotCount - 1;
             var card = deck.Draw();
+            var slotIndex = _filledSlotCount - 1;
             AssignCardToSlot(card, slotIndex);
             card.Flip();
         }
@@ -48,16 +46,16 @@ public class Hand : MonoBehaviour {
     private void AssignCardToSlot(Card card, int slotIndex) {
         var cardTr = card.transform;
         cardTr.SetParent(transform);
-        var angle = SlotToAngle(slotIndex);
+        var angle = SlotIndexToAngle(slotIndex);
         var zOffset = Vector3.back * slotIndex * this.zOffset;
         var pos = transform.TransformPoint(AngleToLocalPos(angle) + zOffset);
         var rot = transform.rotation * AngleToLocalRot(angle);
         card.MoveToPose(new Pose(pos, rot));
         _cards[slotIndex] = card;
-        card.IsAtHand = true;
+        card.BelongedHand = this;
     }
     
-    private float SlotToAngle(int slotIndex) {
+    private float SlotIndexToAngle(int slotIndex) {
         var paddingAngle = arcAngle / slotCount;
         var unitCenter = slotCount / 2f + 0.5f;
         var slotNumber = slotIndex + 1;
@@ -104,8 +102,16 @@ public class Hand : MonoBehaviour {
         _highlightedCard.transform.localPosition += highlightDistance * Vector3.back;
     }
     
+    public void RemoveHighLight() {
+        if (_highlightedCard != null) {
+            _highlightedCard.UnMarkBusy();
+            _highlightedCard.transform.localPosition -= highlightDistance * Vector3.back;
+            _highlightedCard = null;
+        }
+    }
+    
     public void DragHighlightedCard(Vector3 pointedPoint) {
-        if (!Highlighting) {
+        if (_highlightedCard == null) {
             return;
         }
 
@@ -121,9 +127,24 @@ public class Hand : MonoBehaviour {
             MoveCard(FindSlotIndex(_highlightedCard), slotIndex);
         }
     }
+    
+    private float PointedPositionToAngle(Vector3 pointedPoint) {
+        var up = ((Vector2) transform.InverseTransformPoint(pointedPoint)).normalized;
+        var angle = Vector2.SignedAngle(up, Vector2.up);
+        return angle;
+    }
+    
+    private int FindSlotIndex(Card card) {
+        for (int i = 0; i < _cards.Length; i++) {
+            if (card == _cards[i]) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     private void MoveCard(int from, int to) {
-        Debug.Log($"Card moved from {from} to {to}.");
         if (from > to) {
             Card prevCard = _cards[from];
             for (int i = to; i <= from; i++) {
@@ -142,34 +163,10 @@ public class Hand : MonoBehaviour {
         }
     }
 
-    public void RemoveHighLight() {
-        if (_highlightedCard != null) {
-            _highlightedCard.UnMarkBusy();
-            _highlightedCard.transform.localPosition -= highlightDistance * Vector3.back;
-            _highlightedCard = null;
-        }
-    }
-    
-    private float PointedPositionToAngle(Vector3 pointedPoint) {
-        var up = ((Vector2) transform.InverseTransformPoint(pointedPoint)).normalized;
-        var angle = Vector2.SignedAngle(up, Vector2.up);
-        return angle;
-    }
-
-    private int FindSlotIndex(Card card) {
-        for (int i = 0; i < _cards.Length; i++) {
-            if (card == _cards[i]) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
     private void OnDrawGizmos() {
         for (int i = 0; i < slotCount; i++) {
             var slotIndex = i;
-            var pos = transform.TransformPoint(AngleToLocalPos(SlotToAngle(slotIndex)));
+            var pos = transform.TransformPoint(AngleToLocalPos(SlotIndexToAngle(slotIndex)));
             Gizmos.DrawWireSphere(pos, 0.2f);
             
             var style = GUI.skin.label;

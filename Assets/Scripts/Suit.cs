@@ -5,8 +5,8 @@ using UnityEngine;
 
 [Serializable]
 public enum Suit {
-    Spade,
-    Diamond,
-    Heart,
-    Club
+    Spade = 1,
+    Diamond = 2,
+    Heart = 3,
+    Club = 4
 }

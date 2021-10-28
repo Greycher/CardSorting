@@ -11,17 +11,16 @@ public class Card : MonoBehaviour {
 
     public Action<Card> onTargetPoseReached;
 
-    public bool IsAtHand {
-        get => _isAtHand;
-        set => _isAtHand = value;
+    public Hand BelongedHand {
+        get => _belongedHand;
+        set => _belongedHand = value;
     }
-
     public bool AtTarget => _inPosition && _inRotation;
 
     private CardData _cardData;
     private State _state = State.Free;
     private Pose _targetPose;
-    private bool _isAtHand;
+    private Hand _belongedHand;
     private bool _inPosition;
     private bool _inRotation;
 
@@ -84,7 +83,6 @@ public class Card : MonoBehaviour {
     
     public void UnMarkBusy() {
         _state = AtTarget ? State.Free : State.Moving;
-
     }
 
     public static bool IsColliderBelongs(Collider collider) {

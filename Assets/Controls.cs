@@ -3,25 +3,28 @@ using UnityEngine.EventSystems;
 
 public class Controls : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler {
     [SerializeField] private Camera camera;
-    [SerializeField] private Hand hand;
     [SerializeField] private float rayMaxDistance;
 
     private const int NonPointerID = int.MinValue;
 
     private bool Pressed => _pointerID != NonPointerID;
 
+    private Hand _lastHighlightedHand;
     private int _pointerID = NonPointerID;
-    
+
     private void Update() {
         if (!Pressed) {
             if (TryGetPointedCard(out Card card, out Vector3 point)) {
-                if (card.IsAtHand) {
+                var hand = card.BelongedHand;
+                if (hand != null) {
+                    _lastHighlightedHand = hand;
                     hand.Highlight(point);
                 }
             }
             else {
-                if (hand.Highlighting) {
-                    hand.RemoveHighLight();
+                if (_lastHighlightedHand != null) {
+                    _lastHighlightedHand.RemoveHighLight();
+                    _lastHighlightedHand = null;
                 }
             }
         }
@@ -49,7 +52,9 @@ public class Controls : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public void OnDrag(PointerEventData eventData) {
         if (eventData.pointerId == _pointerID) {
             if (TryGetPointedCard(out Card card, out Vector3 point)) {
-                if (card.IsAtHand) {
+                var hand = card.BelongedHand;
+                if (hand != null) {
+                    _lastHighlightedHand = hand;
                     hand.DragHighlightedCard(point);
                 }
             }
