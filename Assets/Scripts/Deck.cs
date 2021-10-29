@@ -5,10 +5,10 @@ using Random = UnityEngine.Random;
 
 public class Deck : MonoBehaviour {
     [SerializeField] private DeckConfiguration configuration;
-    [SerializeField] private Card cardRes;
+    [SerializeField] private CardBehavior cardBehaviorRes;
     [SerializeField] private float spacing = 0.1f;
 
-    private List<Card> _cards = new List<Card>();
+    private List<CardBehavior> _cards = new List<CardBehavior>();
 
     private void Awake() {
         Create();
@@ -18,10 +18,10 @@ public class Deck : MonoBehaviour {
     private void Create() {
         var cards = configuration.Cards;
         for (int i = 0; i < cards.Length; i++) {
-            var card = Instantiate(cardRes, transform);
-            card.AssignData(cards[i]);
-            PositionCard(card, i);
-            _cards.Add(card);
+            var cardBehavior = Instantiate(cardBehaviorRes, transform);
+            cardBehavior.AssignData(cards[i]);
+            PositionCardBehaviour(cardBehavior, i);
+            _cards.Add(cardBehavior);
         }
     }
     
@@ -29,18 +29,18 @@ public class Deck : MonoBehaviour {
         for (int i = _cards.Count - 1; i > 0; i--) {
             var rand = Random.Range(0, i + 1);
             (_cards[i], _cards[rand]) = (_cards[rand], _cards[i]);
-            PositionCard(_cards[i], i);
-            PositionCard(_cards[rand], rand);
+            PositionCardBehaviour(_cards[i], i);
+            PositionCardBehaviour(_cards[rand], rand);
         }
     }
 
-    private void PositionCard(Card card, int orderIndex) {
-        var localPosition = card.transform.localPosition;
+    private void PositionCardBehaviour(CardBehavior cardBehavior, int orderIndex) {
+        var localPosition = cardBehavior.transform.localPosition;
         localPosition.z = -(orderIndex * spacing);
-        card.transform.localPosition = localPosition;
+        cardBehavior.transform.localPosition = localPosition;
     }
 
-    public Card Draw() {
+    public CardBehavior Draw() {
         var lastIndex = _cards.Count - 1;
         var card = _cards[lastIndex];
         _cards.RemoveAt(lastIndex);

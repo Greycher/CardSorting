@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configuration: {fileID: 11400000, guid: 2af01eaf5ad3d9e4a824a89f136ab9ab, type: 2}
-  cardRes: {fileID: 3208157185735026406, guid: ebda881e25c8f2645b6b514f519c2866, type: 3}
+  cardBehaviorRes: {fileID: 3208157185735026406, guid: ebda881e25c8f2645b6b514f519c2866, type: 3}
   spacing: 0.0125
 --- !u!4 &763700447
 Transform:

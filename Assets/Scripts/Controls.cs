@@ -14,8 +14,8 @@ public class Controls : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     private void Update() {
         if (!Pressed) {
-            if (TryGetPointedCard(out Card card, out Vector3 point)) {
-                var hand = card.BelongedHand;
+            if (TryGetPointedCard(out CardBehavior cardBehavior, out Vector3 point)) {
+                var hand = cardBehavior.Card.BelongedHand;
                 if (hand != null) {
                     _lastHighlightedHand = hand;
                     hand.Highlight(point);
@@ -30,12 +30,12 @@ public class Controls : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         }
     }
     
-    private bool TryGetPointedCard(out Card card, out Vector3 point) {
+    private bool TryGetPointedCard(out CardBehavior card, out Vector3 point) {
         var mousePos = Input.mousePosition;
         var ray = camera.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, rayMaxDistance)) {
             point = hitInfo.point;
-            return Card.TryGetFromCollider(hitInfo.collider, out card);
+            return CardBehavior.TryGetFromCollider(hitInfo.collider, out card);
         }
 
         card = null;
@@ -51,8 +51,8 @@ public class Controls : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public void OnDrag(PointerEventData eventData) {
         if (eventData.pointerId == _pointerID) {
-            if (TryGetPointedCard(out Card card, out Vector3 point)) {
-                var hand = card.BelongedHand;
+            if (TryGetPointedCard(out CardBehavior cardBehavior, out Vector3 point)) {
+                var hand = cardBehavior.Card.BelongedHand;
                 if (hand != null) {
                     _lastHighlightedHand = hand;
                     hand.DragHighlightedCard(point);

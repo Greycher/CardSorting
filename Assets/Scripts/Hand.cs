@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -41,21 +42,22 @@ public class Hand : MonoBehaviour {
     private void DrawACard() {
         if (_filledSlotCount < slotCount) {
             _filledSlotCount++;
-            var card = deck.Draw();
+            var cardBehavior = deck.Draw();
             var slotIndex = _filledSlotCount - 1;
-            AssignCardToSlot(card, slotIndex);
-            card.Flip();
+            AssignCardToSlot(cardBehavior.Card, slotIndex);
+            cardBehavior.Flip();
         }
     }
 
     private void AssignCardToSlot(Card card, int slotIndex) {
-        var cardTr = card.transform;
+        var cardBehaviour = card.Behavior;
+        var cardTr = cardBehaviour.transform;
         cardTr.SetParent(transform);
         var angle = SlotIndexToAngle(slotIndex);
         var zOffset = Vector3.back * slotIndex * this.zOffset;
         var pos = transform.TransformPoint(AngleToLocalPos(angle) + zOffset);
         var rot = transform.rotation * AngleToLocalRot(angle);
-        card.MoveToPose(new Pose(pos, rot));
+        cardBehaviour.MoveToPose(new Pose(pos, rot));
         _cards[slotIndex] = card;
         card.BelongedHand = this;
     }
@@ -103,14 +105,16 @@ public class Hand : MonoBehaviour {
         }
 
         _highlightedCard = card;
-        _highlightedCard.MarkBusy();
-        _highlightedCard.transform.localPosition += highlightDistance * Vector3.back;
+        var behaviour = _highlightedCard.Behavior;
+        behaviour.MarkBusy();
+        behaviour.transform.localPosition += highlightDistance * Vector3.back;
     }
     
     public void RemoveHighLight() {
         if (_highlightedCard != null) {
-            _highlightedCard.UnMarkBusy();
-            _highlightedCard.transform.localPosition -= highlightDistance * Vector3.back;
+            var behaviour = _highlightedCard.Behavior;
+            behaviour.UnMarkBusy();
+            behaviour.transform.localPosition -= highlightDistance * Vector3.back;
             _highlightedCard = null;
         }
     }
@@ -122,7 +126,7 @@ public class Hand : MonoBehaviour {
 
         var halfArcAngle = arcAngle * 0.5f;
         var angle = Mathf.Clamp(PointedPositionToAngle(pointedPoint), -halfArcAngle, halfArcAngle);
-        var tr = _highlightedCard.transform;
+        var tr = _highlightedCard.Behavior.transform;
         var slotIndex = AngleToClosestSlotIndex(angle);
         var zOffset = Vector3.back * slotIndex * this.zOffset;
         var highlightOffset = highlightDistance * Vector3.back;
@@ -168,10 +172,13 @@ public class Hand : MonoBehaviour {
         }
     }
     
-    public void UpdateSlots() {
-        for (int i = 0; i < _cards.Length; i++) {
-            var card = _cards[i];
-            AssignCardToSlot(card, i);
+    public void UpdateSlots(List<CardGroup> cardGroups) {
+        var slotIndex = 0;
+        for (int i = 0; i < cardGroups.Count; i++) {
+            var cards = cardGroups[i].cards;
+            for (int j = 0; j < cards.Count; j++) {
+                AssignCardToSlot(cards[j], slotIndex++);
+            }
         }
     }
 
